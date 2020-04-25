@@ -49,7 +49,7 @@ class SearchBook extends Component {
 				/>
               </div>
             </div>
-            <SearchBookResults results={this.state.results}/>
+            <SearchBookResults query={this.state.query} results={this.state.results}/>
           </div>
         )
     }

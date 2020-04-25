@@ -4,19 +4,26 @@ import PropTypes from 'prop-types'
 class SearchBookResults extends Component {
 	render(){
       // Destructuring props
-      const { results } = this.props;
+      const { query, results } = this.props;
       
     	return (
           <div className="search-books-results">
               <ol className="books-grid">
-          {results.map(eachBook=>(
+          {query !== '' && results.map(eachBook=>(
         			<li key={eachBook.id}>
 						{/*console.log(eachBook)*/}
                         <div className="book">
                           <div className="book-top">
+							{/* if book have imageLinks display the thumbnail */}
+							{eachBook.imageLinks && (
                             <div className="book-cover" 
 								style={{ width: 128, height: 193, backgroundImage: `url(${eachBook.imageLinks.thumbnail})`}}>
-							</div>
+							</div>)}
+							{/* if book doesn't habe imageLinks display a placeholder image */}
+							{!eachBook.imageLinks && (
+                            <div className="book-cover" 
+								style={{ width: 128, height: 193, backgroundColor: "light-grey"}}>
+							</div>)}
                             <div className="book-shelf-changer">
                               <select>
                                 <option value="move" disabled>Move to...</option>
@@ -42,7 +49,8 @@ class SearchBookResults extends Component {
 }
 
 SearchBookResults.propTypes = {
-  results: PropTypes.array.isRequired
+  query: PropTypes.string,
+  results: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
 }
 
 export default SearchBookResults
