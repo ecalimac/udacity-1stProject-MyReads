@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 import SearchBookResults from './SearchBookResults';
-import PropTypes from 'prop-types'
 
 class SearchBook extends Component {
-  
-   clearQueryInput() {
-    this.setState({
-      query: '',
-      results:[]
-    });
+  state = {
+    query: '',
+    results: []
   }
 
+  searchBooks = newQuery => {
+    this.setState({query: newQuery});
+    
+    if(newQuery.length > 0){
+    	BooksAPI.search(newQuery).then(data=>{
+    		this.setState({
+            	results: data
+            });
+    	});
+    };
+  };
+
+
+  clearQueryInput = () => {
+    this.setState({
+    	query: ''
+    })
+  };
+
 	render(){
-      // ES6 Destructuring (this helps us to write more legible code -> we'll write state instead of this.state
-      const { state, search } = this.props;
     	return(
           <div className="search-books">
             <div className="search-books-bar">
@@ -30,23 +44,15 @@ class SearchBook extends Component {
                 <input 
 					type="text" 
 					placeholder="Search by title or author"
-					value={state.query}
-					onChange={ event => search(event.target.value) }
+					value={this.state.query}
+					onChange={ event => this.searchBooks(event.target.value) }
 				/>
               </div>
             </div>
-            <SearchBookResults results={state.results}/>
+            <SearchBookResults results={this.state.results}/>
           </div>
         )
     }
 }
 
-SearchBook.propTypes = {
-  state: PropTypes.oneOfType([
-  	PropTypes.string,
-    PropTypes.array,
-    PropTypes.object
-  ]).isRequired,
-  search: PropTypes.func
-}
 export default SearchBook
