@@ -5,12 +5,13 @@ class SearchBookResults extends Component {
 	render(){
       // Destructuring props
       const { results } = this.props;
+      
     	return (
           <div className="search-books-results">
               <ol className="books-grid">
           {results.map(eachBook=>(
         			<li key={eachBook.id}>
-						{console.log(eachBook)}
+						{/*console.log(eachBook)*/}
                         <div className="book">
                           <div className="book-top">
                             <div className="book-cover" 

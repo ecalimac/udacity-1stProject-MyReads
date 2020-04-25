@@ -4,13 +4,21 @@ import SearchBookResults from './SearchBookResults';
 import PropTypes from 'prop-types'
 
 class SearchBook extends Component {
+  
+   clearQueryInput() {
+    this.setState({
+      query: '',
+      results:[]
+    });
+  }
+
 	render(){
       // ES6 Destructuring (this helps us to write more legible code -> we'll write state instead of this.state
       const { state, search } = this.props;
     	return(
           <div className="search-books">
             <div className="search-books-bar">
-              <Link to='/' className="close-search">Close</Link>
+          	<Link to='/' className="close-search" onClick={this.clearQueryInput}>Close</Link>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -27,8 +35,7 @@ class SearchBook extends Component {
 				/>
               </div>
             </div>
-            <SearchBookResults 
-					results={state.results}/>
+            <SearchBookResults results={state.results}/>
           </div>
         )
     }
