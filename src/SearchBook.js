@@ -19,23 +19,25 @@ class SearchBook extends Component {
       return;
     }
   //search for multiple words
-   
+   //query = query.replace(/  +/g,' ').trim();
   //before to start searching we have to assure that the user doesn't typed another character
   //=> update the query (input field) as soon as a character is typed
     this.setState({query: query});
   //...finally we can start searching...
-    BooksAPI.search(query).then((books) => {
+    BooksAPI.search(query).then((response) => {
   //why not make sure again that the user has not typed a character?
       if( query !== this.state.query) return;
       
-      if ("error" in books) {
-        books = [];
-      } else {
+      const emptyResponse = !!response.error;
+      const result = emptyResponse ? [] : response;
   //These books do not know which shelf they are on. They are raw results only. 
   //We need to make sure that books have the correct state while on the search page.
-      books.map(book => this.props.booksOnShelves.filter(b => b.id === book.id).map(b => (b.shelf = book.shelf)));
-      this.setState({books: books});
-      }
+  //Adding shelf properties
+      result.forEach(item => {
+        const myBook = this.props.booksOnShelves.find(elem => elem.id === item.id)
+        if(myBook) item.shelf = myBook.shelf
+      })
+      this.setState({books: result});
     });
   }
 

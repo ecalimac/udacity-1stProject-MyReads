@@ -58,7 +58,7 @@ class BookShelves extends Component {
 
 BookShelves.propTypes = {
 	books: PropTypes.array.isRequired,
-    updateBooks: PropTypes.func.isRequired
+   // updateBooks: PropTypes.func.isRequired
 };
 
 export default BookShelves
