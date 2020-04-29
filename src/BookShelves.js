@@ -5,7 +5,7 @@ import ListBooks from './ListBooks'
 
 class BookShelves extends Component {
 	render() {
-        const { books, update } = this.props;
+        const { books, updateBook } = this.props;
     
         const shelfWantTo = books.filter(book => book.shelf === "wantToRead");
         const shelfRead = books.filter(book => book.shelf === 'read');
@@ -22,7 +22,7 @@ class BookShelves extends Component {
                 		<div className="bookshelf">
                   			<h2 className="bookshelf-title">Currently Reading</h2>
                   			<div className="bookshelf-books">
-                  				<ListBooks books={shelfReading} update={update}/>
+                  				<ListBooks books={shelfReading} updateBook={updateBook}/>
                   			</div>
                 		</div>
           	  		</div>
@@ -32,7 +32,7 @@ class BookShelves extends Component {
                 		<div className="bookshelf">
                   			<h2 className="bookshelf-title">Want to read</h2>
                   			<div className="bookshelf-books">
-                  				<ListBooks books={shelfWantTo} update={update}/>
+                  				<ListBooks books={shelfWantTo} updateBook={updateBook}/>
                   			</div>
                 		</div>
           	  		</div>
@@ -42,7 +42,7 @@ class BookShelves extends Component {
                 		<div className="bookshelf">
                   			<h2 className="bookshelf-title">Read</h2>
                   			<div className="bookshelf-books">
-                  				<ListBooks books={shelfRead} update={update}/>
+                  				<ListBooks books={shelfRead} updateBook={updateBook}/>
                   			</div>
                 		</div>
           	  		</div>
@@ -58,7 +58,7 @@ class BookShelves extends Component {
 
 BookShelves.propTypes = {
 	books: PropTypes.array.isRequired,
-    update: PropTypes.func.isRequired
+    updateBooks: PropTypes.func.isRequired
 };
 
 export default BookShelves

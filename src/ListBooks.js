@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 class ListBooks extends Component {
   render(){
-    const {books, update} = this.props;
+    const {books, updateBook} = this.props;
     return(
       <ol className="books-grid">
       {books.map(eachBook => (
@@ -13,15 +13,15 @@ class ListBooks extends Component {
                 	{/* if book have imageLinks display the thumbnail */}
 					{eachBook.imageLinks && (
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage:`url(${eachBook.imageLinks.thumbnail})`}}></div>)}
-					{/* if book doesn't habe imageLinks display a placeholder image */}
+					{/* if book doesn't have imageLinks display a placeholder image */}
 					{!eachBook.imageLinks && (
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundColor: "light-grey"}}></div>
                     )}
                     <div className="book-shelf-changer">
                     	<select
 							id={eachBook.id}
-							value={eachBook.shelf?eachBook.Shelf : "None"}
-							onChange={event => update(eachBook, event.target.value)}>
+							value={eachBook.shelf?eachBook.shelf : "none"}
+							onChange={event => updateBook(eachBook, event.target.value)}>
                         	<option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -46,7 +46,7 @@ class ListBooks extends Component {
 }
 ListBooks.propTypes = {
 	books: PropTypes.array.isRequired,
-  	update: PropTypes.func.isRequired
+  	updateBook: PropTypes.func.isRequired
 }
 
 export default ListBooks
