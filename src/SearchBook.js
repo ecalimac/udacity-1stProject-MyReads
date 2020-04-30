@@ -23,22 +23,27 @@ class SearchBook extends Component {
     //=> update the query (input field) as soon as a character is typed
     this.setState({ query: query });
     //...finally we can start searching...
-    BooksAPI.search(query).then((response) => {
+    BooksAPI.search(query).then((responseFromAPI) => {
       //make sure again that the user has not typed a character
       if (query !== this.state.query) return;
-      //if the query is empty no need to request to server just clean the books array
-      const emptyResponse = !!response.error;
-      const result = emptyResponse ? [] : response;
-      //These books do not know which shelf they are on. They are raw results only.
+      
+      //if the API response is undefined or empty, just clean the books array
+      // !! is similar to Boolean();
+      const undefinedResponse = !!responseFromAPI.error;
+      const queryResult = undefinedResponse ? [] : responseFromAPI;
+      
+      //These books do not know which shelf they are on.
       //We need to make sure that books have the correct state while on the search page.
-      //Adding shelf properties
-      result.forEach((item) => {
-        const myBook = this.props.booksOnShelves.find(
-          (elem) => elem.id === item.id
+      //Adding shelf property
+      queryResult.forEach((bookFromAPI) => {
+        const bookToUpdate = this.props.booksOnShelves.find(
+          (bookWithShelf) => bookWithShelf.id === bookFromAPI.id
         );
-        if (myBook) item.shelf = myBook.shelf;
+        if (bookToUpdate) {
+          bookFromAPI.shelf = bookToUpdate.shelf;
+        }
       });
-      this.setState({ books: result });
+      this.setState({ books: queryResult });
     });
   };
 
