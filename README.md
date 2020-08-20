@@ -21,6 +21,8 @@ Create a bookshelf app that allows you to select and categorize books you have r
 
 [See the **rubric** for specific criteria.](https://review.udacity.com/#!/rubrics/918/view)
 
+Live demo: [https://nostalgic-minsky-d7b070.netlify.app/](https://nostalgic-minsky-d7b070.netlify.app/)
+
 ## TL;DR
 
 To get started developing right away:
